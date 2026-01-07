@@ -23,6 +23,29 @@ def orders_view(request: HttpRequest) -> HttpResponse:
 def calculators_view(request: HttpRequest) -> HttpResponse:
 
     # ?num1=3&num2=7&op=+
+
+    query_params = request.GET
+
+    num1_value = query_params.get('num1')
+    num2_value = query_params.get('num2')
+    op_value = query_params.get('op')
     
-    return HttpResponse(f'result: ') # 'result: 3+7=10
+    num1 = float(num1)
+    num2 = float(num2)
+
+    if op == "add":
+        result = num1 + num2
+    elif op == "sub":
+        result = num1 - num2
+    elif op == "mul":
+        result = num1 * num2
+    elif op == "div":
+        if num2 == 0:
+            return HttpResponse("0 ga bo'lish mumkin emas!")
+        result = num1 / num2
+    else: 
+        return HttpResponse("No'to'g'ri amal")
+
+
+    return HttpResponse(f'result: [{result}]') # 'result: 3+7=10
 
